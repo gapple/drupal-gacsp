@@ -1,0 +1,19 @@
+<?php
+/**
+ * @file
+ * Contains gacsp.module.
+ */
+
+/**
+ * Implements hook_page_attachments().
+ */
+function gacsp_page_attachments(array &$attachments) {
+  /** @var \Drupal\gacsp\CommandRegistryService $command_registry */
+  $command_registry = \Drupal::service('gacsp.command_registry');
+
+  if (($tracker_id = $command_registry->getTrackerId())) {
+    $attachments['#attached']['library'][] = 'gacsp/analytics';
+    $attachments['#attached']['drupalSettings']['gacsp']['tracker_id'] = $tracker_id;
+    $attachments['#attached']['drupalSettings']['gacsp']['commands'] = $command_registry->getDrupalSettingCommands();
+  }
+}

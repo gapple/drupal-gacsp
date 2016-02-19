@@ -1,0 +1,6 @@
+analytics:
+  version: VERSION
+  js:
+    js/analytics.js: {}
+  dependencies:
+   - core/drupalSettings

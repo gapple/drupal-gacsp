@@ -1,0 +1,4 @@
+services:
+  gacsp.command_registry:
+    class: Drupal\gacsp\CommandRegistryService
+    arguments: ['@config.factory']
