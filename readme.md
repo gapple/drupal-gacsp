@@ -27,6 +27,7 @@ Each command has a priority that determines the order that it is added to the
 command queue.  The default values are
 
  - Create: 300
+ - Require: 250
  - Set: 100
  - Generic: 0
  - Pageview: -5
