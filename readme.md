@@ -30,7 +30,7 @@ command queue.  The default values are
  - Set: 100
  - Generic: 0
  - Pageview: -5
- - Send: -10
+ - Send, Event: -10
 
 
 ### Grouping Commands

@@ -6,6 +6,10 @@ namespace Drupal\gacsp\AnalyticsCommand;
  */
 class Pageview extends Send {
 
+  /*
+   * Pageview event should come before other Send commands (e.g. event), but
+   * after most other commands (e.g. set dimension)
+   */
   const DEFAULT_PRIORITY = -5;
 
   /**
