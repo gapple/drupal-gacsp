@@ -29,7 +29,8 @@ command queue.  The default values are
  - Create: 300
  - Set: 100
  - Generic: 0
- - Pageview: -1
+ - Pageview: -5
+ - Send: -10
 
 
 ### Grouping Commands

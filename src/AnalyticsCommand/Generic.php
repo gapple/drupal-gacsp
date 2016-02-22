@@ -23,14 +23,14 @@ class Generic implements DrupalSettingCommandsInterface {
   protected $command;
 
   /**
-   * The command options.
+   * A map of values for the command's fieldsObject parameter.
    *
    * @var array
    */
   protected $fieldsObject;
 
   /**
-   * The tracker name.
+   * The name of the tracker for this command.
    *
    * @var string
    */
@@ -42,7 +42,7 @@ class Generic implements DrupalSettingCommandsInterface {
    * @param string $command
    *   The command name.
    * @param array $fields_object
-   *   An array of values for the command.
+   *   A map of values for the command's fieldsObject parameter.
    * @param string $tracker_name
    *   The tracker name (optional).
    * @param int $priority
@@ -66,7 +66,7 @@ class Generic implements DrupalSettingCommandsInterface {
   }
 
   /**
-   * An array of values to send with the command.
+   * Get the map of values for the command's fieldsObject parameter.
    *
    * @return array
    *   An array of command values.
@@ -75,6 +75,12 @@ class Generic implements DrupalSettingCommandsInterface {
     return $this->fieldsObject;
   }
 
+  /**
+   * The tracker this command will be applied to, if specified.
+   *
+   * @return null|string
+   *   The tracker name, or NULL if the default tracker.
+   */
   public function getTrackerName() {
     return $this->trackerName;
   }

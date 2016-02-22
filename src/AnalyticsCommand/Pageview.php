@@ -4,9 +4,9 @@ namespace Drupal\gacsp\AnalyticsCommand;
 /**
  * Class Pageview.
  */
-class Pageview extends Generic {
+class Pageview extends Send {
 
-  const DEFAULT_PRIORITY = -1;
+  const DEFAULT_PRIORITY = -5;
 
   /**
    * Create constructor.
