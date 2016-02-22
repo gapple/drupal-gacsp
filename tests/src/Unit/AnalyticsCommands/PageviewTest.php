@@ -1,0 +1,53 @@
+<?php
+/**
+ * @file
+ * Contains \Drupal\Tests\gacsp\Unit\AnalyticsCommands\PageviewTest.
+ */
+
+namespace Drupal\Tests\gacsp\Unit\AnalyticsCommands;
+
+use Drupal\gacsp\AnalyticsCommand\Pageview;
+use Drupal\Tests\UnitTestCase;
+
+/**
+ * @coversDefaultClass \Drupal\gacsp\AnalyticsCommand\Pageview
+ * @group gacsp
+ */
+class PageviewTest extends UnitTestCase {
+
+  /**
+   * Test the default priority.
+   */
+  public function testDefaultPriority() {
+    $command = new Pageview();
+
+    $this->assertEquals(-5, $command->getPriority());
+  }
+
+  /**
+   * Test the command array for a basic command without additional options.
+   */
+  public function testBasicSettingCommands() {
+    $command = new Pageview();
+
+    $this->assertEquals([['send', 'pageview']], $command->getSettingCommands());
+  }
+
+  /**
+   * Test the command array when values are provided in fieldsObject.
+   */
+  public function testWithFieldsObjectSettingCommmands() {
+    $command = new Pageview(['field1' => 'value1']);
+
+    $this->assertEquals([['send', 'pageview', ['field1' => 'value1']]], $command->getSettingCommands());
+  }
+
+  /**
+   * Test the command when a tracker name is provided.
+   */
+  public function testWithTrackerNameSettingCommands() {
+    $command = new Pageview([], 'tracker');
+
+    $this->assertEquals([['tracker.send', 'pageview']], $command->getSettingCommands());
+  }
+}
