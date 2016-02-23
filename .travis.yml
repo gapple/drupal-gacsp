@@ -1,0 +1,27 @@
+language: php
+sudo: false
+cache:
+  directories:
+  - $HOME/.composer
+
+php:
+  - "5.5"
+  - "5.6"
+  - "7.0"
+
+install:
+  # add composer's global bin directory to the path
+  - export PATH="$HOME/.composer/vendor/bin:$PATH"
+  - composer global require drush/drush:~8.0 satooshi/php-coveralls:dev-master
+  - cd ~/build
+  - drush dl drupal --drupal-project-rename=drupal
+  - cd ~/build/drupal/modules
+  - ln -s $TRAVIS_BUILD_DIR gacsp
+  - ls ~/build/drupal/modules
+
+script:
+  - cd ~/build/drupal/core
+  - ../vendor/bin/phpunit --group gacsp --coverage-clover ~/build/logs/clover.xml
+
+after_success:
+  - coveralls -v --coverage_clover ~/build/logs/clover.xml --root_dir $TRAVIS_BUILD_DIR
