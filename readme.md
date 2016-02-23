@@ -1,7 +1,7 @@
-gascp Module
+gacsp Module
 -------------------
 
-gascp provides Google Analytics integration in Drupal that emphasises
+gacsp provides Google Analytics integration in Drupal that emphasises
 *programmability* over *configurability*.
 
 No inline Javascript is used, to not inhibit the use of
@@ -16,7 +16,7 @@ tracker and a pageview event will automatically be added to the page.
 Additional analytics commands can be added via the `gacsp.command_registry` 
 service.
 
-    \Drupal::service('gascp.command_registry')->addCommand(
+    \Drupal::service('gacsp.command_registry')->addCommand(
       new \Drupal\gacsp\AnalyticsCommand\Set('dimension1', 'value')
     );
 
@@ -46,4 +46,4 @@ Commands can be placed within a group to maintain a consistent order among other
     $commandGroup->addCommand(
       new \Drupal\gacsp\AnalyticsCommand\Set('dimension2', 'value')
     );
-    \Drupal::service('gascp.command_registry')->addItem($commandGroup);
+    \Drupal::service('gacsp.command_registry')->addItem($commandGroup);
