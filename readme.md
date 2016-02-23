@@ -46,4 +46,4 @@ Commands can be placed within a group to maintain a consistent order among other
     $commandGroup->addCommand(
       new \Drupal\gacsp\AnalyticsCommand\Set('dimension2', 'value')
     );
-    \Drupal::service('gascp.command_registry')->addCommand($commandGroup);
+    \Drupal::service('gascp.command_registry')->addItem($commandGroup);

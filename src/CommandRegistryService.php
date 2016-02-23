@@ -53,12 +53,12 @@ class CommandRegistryService {
   }
 
   /**
-   * Add a command to the registry.
+   * Add an item to the registry.
    *
    * @param \Drupal\gacsp\AnalyticsCommand\DrupalSettingCommandsInterface $command
    *   An analytics command.
    */
-  public function addCommand(DrupalSettingCommandsInterface $command) {
+  public function addItem(DrupalSettingCommandsInterface $command) {
     $this->commands[] = $command;
   }
 

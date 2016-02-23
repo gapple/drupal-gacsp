@@ -15,8 +15,8 @@ function gacsp_page_attachments(array &$attachments) {
   $command_registry = \Drupal::service('gacsp.command_registry');
 
   if (($tracker_id = $command_registry->getTrackingId())) {
-    $command_registry->addCommand(new Create($tracker_id));
-    $command_registry->addCommand(new Pageview());
+    $command_registry->addItem(new Create($tracker_id));
+    $command_registry->addItem(new Pageview());
 
     $attachments['#attached']['library'][] = 'gacsp/analytics';
     $attachments['#attached']['drupalSettings']['gacsp']['tracker_id'] = $tracker_id;
