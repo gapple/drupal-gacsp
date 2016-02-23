@@ -9,7 +9,7 @@ namespace Drupal\gacsp\AnalyticsCommand;
 /**
  * Class Drupal\gacsp\AnalyticsCommand\Group.
  */
-class Group implements DrupalSettingCommandsInterface, GroupInterface {
+class Group implements DrupalSettingCommandsInterface, GroupInterface, \IteratorAggregate {
 
   use DrupalSettingCommandsTrait;
 
@@ -81,4 +81,15 @@ class Group implements DrupalSettingCommandsInterface, GroupInterface {
     );
   }
 
+  /**
+   * Retrieve an external iterator.
+   *
+   * @link http://php.net/manual/en/iteratoraggregate.getiterator.php
+   *
+   * @return \ArrayIterator
+   *   An iterator for the group's commands.
+   */
+  public function getIterator() {
+    return new \ArrayIterator($this->commands);
+  }
 }
