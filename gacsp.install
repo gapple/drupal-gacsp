@@ -1,0 +1,14 @@
+<?php
+/**
+ * @file
+ * Contains gacsp module installation and update hooks.
+ */
+
+/**
+ * Add add_default_commands with default value to config.
+ */
+function gacsp_update_8101() {
+  \Drupal::configFactory()->getEditable('gacsp.settings')
+    ->set('add_default_commands', TRUE)
+    ->save();
+}

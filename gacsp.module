@@ -11,12 +11,18 @@ use Drupal\gacsp\AnalyticsCommand\Pageview;
  * Implements hook_page_attachments().
  */
 function gacsp_page_attachments(array &$attachments) {
+
   /** @var \Drupal\gacsp\CommandRegistryService $command_registry */
   $command_registry = \Drupal::service('gacsp.command_registry');
 
-  if (($tracking_id = $command_registry->getTrackingId())) {
-    $command_registry->addItem(new Create($tracking_id));
-    $command_registry->addItem(new Pageview());
+  $config = \Drupal::configFactory()->get('gacsp.settings');
+  $tracking_id = $config->get('tracking_id');
+
+  if ($tracking_id) {
+    if ($config->get('add_default_commands')) {
+      $command_registry->addItem(new Create($tracking_id));
+      $command_registry->addItem(new Pageview());
+    }
 
     $attachments['#attached']['library'][] = 'gacsp/analytics';
     $attachments['#attached']['drupalSettings']['gacsp']['tracking_id'] = $tracking_id;

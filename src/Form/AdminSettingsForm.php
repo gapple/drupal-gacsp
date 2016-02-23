@@ -40,9 +40,17 @@ class AdminSettingsForm extends ConfigFormBase {
       '#type' => 'textfield',
       '#title' => $this->t('Web Property Tracking ID'),
       '#description' => $this->t('Tracking ID in the format "UA-xxxxxxx-y"'),
-      '#placeholder' => 'UA-',
+      '#placeholder' => 'UA-xxxxxxxx-y',
       '#maxlength' => 20,
+      '#size' => '20',
       '#default_value' => $config->get('tracking_id'),
+    ];
+
+    $form['add_default_commands'] = [
+      '#type' => 'checkbox',
+      '#title' => $this->t('Add default analytics commands'),
+      '#description' => $this->t('Add \'create\' and \'send pageview\' commands to enable tracking.  Disable if another module will be providing these commands.'),
+      '#default_value' => $config->get('add_default_commands'),
     ];
 
     return parent::buildForm($form, $form_state);
@@ -67,6 +75,7 @@ class AdminSettingsForm extends ConfigFormBase {
 
     $this->config('gacsp.settings')
       ->set('tracking_id', $form_state->getValue('tracking_id'))
+      ->set('add_default_commands', $form_state->getValue('add_default_commands'))
       ->save();
 
     parent::submitForm($form, $form_state);

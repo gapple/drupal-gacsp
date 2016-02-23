@@ -6,3 +6,6 @@ gacsp.settings:
     tracking_id:
       type: string
       label: 'Web Property Tracking ID'
+    add_default_commands:
+      type: boolean
+      label: 'Add default analytics commands to registry'
