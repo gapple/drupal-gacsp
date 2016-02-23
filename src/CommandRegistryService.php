@@ -7,11 +7,7 @@
 namespace Drupal\gacsp;
 
 use Drupal\Core\Config\ConfigFactoryInterface;
-use Drupal\gacsp\AnalyticsCommand\Create;
 use Drupal\gacsp\AnalyticsCommand\DrupalSettingCommandsInterface;
-use Drupal\gacsp\AnalyticsCommand\Group;
-use Drupal\gacsp\AnalyticsCommand\Pageview;
-use Drupal\gacsp\AnalyticsCommand\Set;
 
 /**
  * Class CommandRegistryService.
@@ -42,19 +38,6 @@ class CommandRegistryService {
     $this->configFactory = $config_factory;
 
     $this->commands = [];
-
-    $this->registerInitialCommands();
-  }
-
-  /**
-   * Register the initial create and pageview commands.
-   */
-  protected function registerInitialCommands() {
-
-    if (($trackingId = $this->getTrackerId())) {
-      $this->commands[] = new Create($trackingId);
-      $this->commands[] = new Pageview();
-    }
   }
 
   /**
@@ -63,7 +46,7 @@ class CommandRegistryService {
    * @return string|null
    *   The tracker id.
    */
-  public function getTrackerId() {
+  public function getTrackingId() {
     $config = $this->configFactory->get('gacsp.settings');
 
     return $config->get('tracking_id');

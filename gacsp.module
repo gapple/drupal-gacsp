@@ -4,6 +4,9 @@
  * Contains gacsp.module.
  */
 
+use Drupal\gacsp\AnalyticsCommand\Create;
+use Drupal\gacsp\AnalyticsCommand\Pageview;
+
 /**
  * Implements hook_page_attachments().
  */
@@ -11,7 +14,10 @@ function gacsp_page_attachments(array &$attachments) {
   /** @var \Drupal\gacsp\CommandRegistryService $command_registry */
   $command_registry = \Drupal::service('gacsp.command_registry');
 
-  if (($tracker_id = $command_registry->getTrackerId())) {
+  if (($tracker_id = $command_registry->getTrackingId())) {
+    $command_registry->addCommand(new Create($tracker_id));
+    $command_registry->addCommand(new Pageview());
+
     $attachments['#attached']['library'][] = 'gacsp/analytics';
     $attachments['#attached']['drupalSettings']['gacsp']['tracker_id'] = $tracker_id;
     $attachments['#attached']['drupalSettings']['gacsp']['commands'] = $command_registry->getDrupalSettingCommands();
