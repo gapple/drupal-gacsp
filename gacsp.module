@@ -14,12 +14,12 @@ function gacsp_page_attachments(array &$attachments) {
   /** @var \Drupal\gacsp\CommandRegistryService $command_registry */
   $command_registry = \Drupal::service('gacsp.command_registry');
 
-  if (($tracker_id = $command_registry->getTrackingId())) {
-    $command_registry->addItem(new Create($tracker_id));
+  if (($tracking_id = $command_registry->getTrackingId())) {
+    $command_registry->addItem(new Create($tracking_id));
     $command_registry->addItem(new Pageview());
 
     $attachments['#attached']['library'][] = 'gacsp/analytics';
-    $attachments['#attached']['drupalSettings']['gacsp']['tracker_id'] = $tracker_id;
+    $attachments['#attached']['drupalSettings']['gacsp']['tracking_id'] = $tracking_id;
     $attachments['#attached']['drupalSettings']['gacsp']['commands'] = $command_registry->getDrupalSettingCommands();
   }
 }
