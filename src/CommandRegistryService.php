@@ -15,13 +15,6 @@ use Drupal\gacsp\AnalyticsCommand\DrupalSettingCommandsInterface;
 class CommandRegistryService {
 
   /**
-   * The config factory service.
-   *
-   * @var \Drupal\Core\Config\ConfigFactoryInterface
-   */
-  protected $configFactory;
-
-  /**
    * The registered analytics commands.
    *
    * @var array
@@ -30,26 +23,9 @@ class CommandRegistryService {
 
   /**
    * CommandRegistryService constructor.
-   *
-   * @param \Drupal\Core\Config\ConfigFactoryInterface $config_factory
-   *   The config factory service.
    */
-  public function __construct(ConfigFactoryInterface $config_factory) {
-    $this->configFactory = $config_factory;
-
+  public function __construct() {
     $this->commands = [];
-  }
-
-  /**
-   * Get the configured tracker id.
-   *
-   * @return string|null
-   *   The tracker id.
-   */
-  public function getTrackingId() {
-    $config = $this->configFactory->get('gacsp.settings');
-
-    return $config->get('tracking_id');
   }
 
   /**
