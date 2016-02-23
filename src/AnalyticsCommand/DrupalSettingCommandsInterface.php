@@ -12,16 +12,6 @@ namespace Drupal\gacsp\AnalyticsCommand;
 interface DrupalSettingCommandsInterface {
 
   /**
-   * A key to identify this item.
-   *
-   * Value does not need to be unique amongst all command instances.
-   *
-   * @return string
-   *   Item name.
-   */
-  public function getKey();
-
-  /**
    * An integer value for sorting by priority.
    *
    * @return int

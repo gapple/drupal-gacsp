@@ -49,7 +49,7 @@ class Generic implements DrupalSettingCommandsInterface {
    *   The command priority.
    */
   public function __construct($command, array $fields_object = [], $tracker_name = NULL, $priority = self::DEFAULT_PRIORITY) {
-    $this->command = $this->key = $command;
+    $this->command = $command;
     $this->fieldsObject = $fields_object;
     $this->trackerName = $tracker_name;
     $this->priority = $priority;

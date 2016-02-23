@@ -14,30 +14,11 @@ namespace Drupal\gacsp\AnalyticsCommand;
 trait DrupalSettingCommandsTrait {
 
   /**
-   * A key to identify this item.
-   *
-   * Value does not need to be unique amongst all command instances.
-   *
-   * @var string
-   */
-  protected $key;
-
-  /**
    * Priority integer.
    *
    * @var int
    */
   protected $priority;
-
-  /**
-   * Get the key identifying this command.
-   *
-   * @return string
-   *   The key string.
-   */
-  public function getKey() {
-    return $this->key;
-  }
 
   /**
    * An integer value for sorting by priority.

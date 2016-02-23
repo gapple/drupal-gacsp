@@ -9,11 +9,18 @@ namespace Drupal\gacsp\AnalyticsCommand;
 /**
  * Class Drupal\gacsp\AnalyticsCommand\Group.
  */
-class Group implements DrupalSettingCommandsInterface {
+class Group implements DrupalSettingCommandsInterface, GroupInterface {
 
   use DrupalSettingCommandsTrait;
 
   const DEFAULT_PRIORITY = 0;
+
+  /**
+   * A key to identify this group.
+   *
+   * @var string
+   */
+  protected $groupKey;
 
   /**
    * The commands within this group.
@@ -31,9 +38,19 @@ class Group implements DrupalSettingCommandsInterface {
    *   The group priority.
    */
   public function __construct($key, $priority = self::DEFAULT_PRIORITY) {
-    $this->key = $key;
+    $this->groupKey = $key;
     $this->priority = $priority;
     $this->commands = [];
+  }
+
+  /**
+   * Get the key identifying this group.
+   *
+   * @return string
+   *   The group key.
+   */
+  public function getGroupKey() {
+    return $this->groupKey;
   }
 
   /**
