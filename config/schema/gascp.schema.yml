@@ -12,3 +12,13 @@ gacsp.settings:
     send_pageview:
       type: boolean
       label: 'Send Pageview Event'
+    plugins:
+      type: mapping
+      label: 'Plugins'
+      mapping:
+        linkid:
+          type: boolean
+          label: 'Enhanced Link Attribution'
+        displayfeatures:
+          type: boolean
+          label: 'Display Features'

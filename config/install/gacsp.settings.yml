@@ -1,3 +1,6 @@
 add_default_commands: true
 tracking_id: ''
 send_pageview: true
+plugins:
+  linkid: false
+  displayfeatures: false

@@ -67,6 +67,28 @@ class AdminSettingsForm extends ConfigFormBase {
       '#default_value' => $config->get('send_pageview'),
     ];
 
+    $form['default_config']['plugins'] = [
+      '#type' => 'fieldset',
+      '#title' => 'Plugins',
+      '#tree' => TRUE,
+    ];
+    $form['default_config']['plugins']['linkid'] = [
+      '#type' => 'checkbox',
+      '#title' => $this->t('Enhanced Link Attribution'),
+      '#description' => $this->t('Improve the accuracy of your In-Page Analytics report by automatically differentiating between multiple links to the same URL on a single page by using link element IDs (<a href=":url">Documentation</a>).', [
+        ':url' => 'https://developers.google.com/analytics/devguides/collection/analyticsjs/enhanced-link-attribution',
+      ]),
+      '#default_value' => $config->get('plugins.linkid'),
+    ];
+    $form['default_config']['plugins']['displayfeatures'] = [
+      '#type' => 'checkbox',
+      '#title' => $this->t('Display Features'),
+      '#description' => $this->t('Enable Advertising Features in Google Analytics, such as Remarketing, Demographics and Interest Reporting, and more (<a href=":url">Documentation</a>).<br/> This option can also be enabled through your property settings.', [
+        ':url' => 'https://developers.google.com/analytics/devguides/collection/analyticsjs/enhanced-link-attribution',
+      ]),
+      '#default_value' => $config->get('plugins.displayfeatures'),
+    ];
+
     return parent::buildForm($form, $form_state);
   }
 
@@ -91,6 +113,8 @@ class AdminSettingsForm extends ConfigFormBase {
       ->set('add_default_commands', $form_state->getValue('add_default_commands'))
       ->set('tracking_id', $form_state->getValue('tracking_id'))
       ->set('send_pageview', $form_state->getValue('send_pageview'))
+      ->set('plugins.linkid', $form_state->getValue(['plugins', 'linkid']))
+      ->set('plugins.displayfeatures', $form_state->getValue(['plugins', 'displayfeatures']))
       ->save();
 
     parent::submitForm($form, $form_state);
