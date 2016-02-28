@@ -61,6 +61,11 @@ class AdminSettingsForm extends ConfigFormBase {
       '#size' => '20',
       '#default_value' => $config->get('tracking_id'),
     ];
+    $form['default_config']['send_pageview'] = [
+      '#type' => 'checkbox',
+      '#title' => $this->t('Send Pageview Event'),
+      '#default_value' => $config->get('send_pageview'),
+    ];
 
     return parent::buildForm($form, $form_state);
   }
@@ -85,6 +90,7 @@ class AdminSettingsForm extends ConfigFormBase {
     $this->config('gacsp.settings')
       ->set('add_default_commands', $form_state->getValue('add_default_commands'))
       ->set('tracking_id', $form_state->getValue('tracking_id'))
+      ->set('send_pageview', $form_state->getValue('send_pageview'))
       ->save();
 
     parent::submitForm($form, $form_state);

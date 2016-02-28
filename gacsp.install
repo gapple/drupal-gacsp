@@ -12,3 +12,12 @@ function gacsp_update_8101() {
     ->set('add_default_commands', TRUE)
     ->save();
 }
+
+/**
+ * Add send_pageview with default value to config.
+ */
+function gacsp_update_8102() {
+  \Drupal::configFactory()->getEditable('gacsp.settings')
+    ->set('send_pageview', TRUE)
+    ->save();
+}

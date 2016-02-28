@@ -20,7 +20,9 @@ function gacsp_page_attachments(array &$attachments) {
     if (($tracking_id = $config->get('tracking_id'))) {
       $command_registry->addItem(new Create($tracking_id));
     }
-    $command_registry->addItem(new Pageview());
+    if ($config->get('send_pageview')) {
+      $command_registry->addItem(new Pageview());
+    }
   }
 
   $attachments['#attached']['library'][] = 'gacsp/analytics';

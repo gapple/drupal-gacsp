@@ -1,2 +1,3 @@
 add_default_commands: true
 tracking_id: ''
+send_pageview: true

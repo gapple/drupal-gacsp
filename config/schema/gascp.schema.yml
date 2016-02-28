@@ -9,3 +9,6 @@ gacsp.settings:
     tracking_id:
       type: string
       label: 'Web Property Tracking ID'
+    send_pageview:
+      type: boolean
+      label: 'Send Pageview Event'
