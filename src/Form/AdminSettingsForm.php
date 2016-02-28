@@ -36,7 +36,23 @@ class AdminSettingsForm extends ConfigFormBase {
   public function buildForm(array $form, FormStateInterface $form_state) {
     $config = $this->config('gacsp.settings');
 
-    $form['tracking_id'] = [
+    $form['add_default_commands'] = [
+      '#type' => 'checkbox',
+      '#title' => $this->t('Add default analytics commands'),
+      '#description' => $this->t('Disable if another module will be providing these commands.'),
+      '#default_value' => $config->get('add_default_commands'),
+    ];
+
+    $form['default_config'] = [
+      '#type' => 'fieldset',
+      '#title' => $this->t('Default Options'),
+      '#states' => [
+        'visible' => [
+          ':input[data-drupal-selector="edit-add-default-commands"]' => ['checked' => TRUE],
+        ],
+      ],
+    ];
+    $form['default_config']['tracking_id'] = [
       '#type' => 'textfield',
       '#title' => $this->t('Web Property Tracking ID'),
       '#description' => $this->t('Tracking ID in the format "UA-xxxxxxx-y"'),
@@ -44,13 +60,6 @@ class AdminSettingsForm extends ConfigFormBase {
       '#maxlength' => 20,
       '#size' => '20',
       '#default_value' => $config->get('tracking_id'),
-    ];
-
-    $form['add_default_commands'] = [
-      '#type' => 'checkbox',
-      '#title' => $this->t('Add default analytics commands'),
-      '#description' => $this->t('Add \'create\' and \'send pageview\' commands to enable tracking.  Disable if another module will be providing these commands.'),
-      '#default_value' => $config->get('add_default_commands'),
     ];
 
     return parent::buildForm($form, $form_state);
@@ -74,8 +83,8 @@ class AdminSettingsForm extends ConfigFormBase {
   public function submitForm(array &$form, FormStateInterface $form_state) {
 
     $this->config('gacsp.settings')
-      ->set('tracking_id', $form_state->getValue('tracking_id'))
       ->set('add_default_commands', $form_state->getValue('add_default_commands'))
+      ->set('tracking_id', $form_state->getValue('tracking_id'))
       ->save();
 
     parent::submitForm($form, $form_state);
