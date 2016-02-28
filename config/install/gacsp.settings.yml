@@ -4,3 +4,6 @@ send_pageview: true
 plugins:
   linkid: false
   displayfeatures: false
+  linker:
+    enable: false
+    domains: {}

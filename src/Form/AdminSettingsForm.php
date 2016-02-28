@@ -88,6 +88,25 @@ class AdminSettingsForm extends ConfigFormBase {
       ]),
       '#default_value' => $config->get('plugins.displayfeatures'),
     ];
+    $form['default_config']['plugins']['linker'] = [
+      '#type' => 'checkbox',
+      '#title' => $this->t('Linker'),
+      '#description' => $this->t('Enable cross-domain tracking (<a href=":url">Documentation</a>).', [
+        ':url' => 'https://developers.google.com/analytics/devguides/collection/analyticsjs/linker',
+      ]),
+      '#default_value' => $config->get('plugins.linker.enable'),
+    ];
+    $form['default_config']['plugins']['linker_domains'] = [
+      '#type' => 'textfield',
+      '#title' => $this->t('Linker Domains'),
+      '#description' => $this->t('A comma separated list of domains.'),
+      '#default_value' => implode(', ', $config->get('plugins.linker.domains')),
+      '#states' => [
+        'visible' => [
+          ':input[data-drupal-selector="edit-plugins-linker"]' => ['checked' => TRUE],
+        ],
+      ],
+    ];
 
     return parent::buildForm($form, $form_state);
   }
@@ -115,6 +134,8 @@ class AdminSettingsForm extends ConfigFormBase {
       ->set('send_pageview', $form_state->getValue('send_pageview'))
       ->set('plugins.linkid', $form_state->getValue(['plugins', 'linkid']))
       ->set('plugins.displayfeatures', $form_state->getValue(['plugins', 'displayfeatures']))
+      ->set('plugins.linker.enable', $form_state->getValue(['plugins', 'linker']))
+      ->set('plugins.linker.domains', preg_split('/, ?/', $form_state->getValue(['plugins', 'linker_domains'])))
       ->save();
 
     parent::submitForm($form, $form_state);

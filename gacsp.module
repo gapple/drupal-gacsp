@@ -5,6 +5,7 @@
  */
 
 use Drupal\gacsp\AnalyticsCommand\Create;
+use Drupal\gacsp\AnalyticsCommand\Linker\AutoLink;
 use Drupal\gacsp\AnalyticsCommand\Pageview;
 use Drupal\gacsp\AnalyticsCommand\RequirePlugin;
 
@@ -19,16 +20,28 @@ function gacsp_page_attachments(array &$attachments) {
   $config = \Drupal::configFactory()->get('gacsp.settings');
   if ($config->get('add_default_commands')) {
     if (($tracking_id = $config->get('tracking_id'))) {
-      $command_registry->addItem(new Create($tracking_id));
+      $fieldsObject = [];
+      if ($config->get('plugins.linker.enable')) {
+        $fieldsObject['allowLinker'] = TRUE;
+      }
+
+      $command_registry->addItem(new Create($tracking_id, 'auto', NULL, $fieldsObject));
     }
     if ($config->get('send_pageview')) {
       $command_registry->addItem(new Pageview());
     }
+
     if ($config->get('plugins.linkid')) {
       $command_registry->addItem(new RequirePlugin('linkid'));
     }
     if ($config->get('plugins.displayfeatures')) {
       $command_registry->addItem(new RequirePlugin('displayfeatures'));
+    }
+    if ($config->get('plugins.linker.enable')) {
+      $command_registry->addItem(new RequirePlugin('linker'));
+      if (($domains = $config->get('plugins.linker.domains'))) {
+        $command_registry->addItem(new AutoLink($domains));
+      }
     }
   }
 

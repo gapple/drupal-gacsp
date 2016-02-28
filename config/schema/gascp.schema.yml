@@ -22,3 +22,15 @@ gacsp.settings:
         displayfeatures:
           type: boolean
           label: 'Display Features'
+        linker:
+          type: mapping
+          label: 'Linker'
+          mapping:
+            enable:
+              type: boolean
+              label: 'Enable Linker'
+            domains:
+              type: sequence
+              label: 'Domains'
+              sequence:
+                type: string

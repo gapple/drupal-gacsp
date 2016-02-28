@@ -31,3 +31,13 @@ function gacsp_update_8103() {
     ->set('plugins.displayfeatures', FALSE)
     ->save();
 }
+
+/**
+ * Add linker plugin config values.
+ */
+function gacsp_update_8104() {
+  \Drupal::configFactory()->getEditable('gacsp.settings')
+    ->set('plugins.linker.enable', FALSE)
+    ->set('plugins.linker.domains', [])
+    ->save();
+}
