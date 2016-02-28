@@ -23,9 +23,8 @@ function gacsp_page_attachments(array &$attachments) {
       $command_registry->addItem(new Create($tracking_id));
       $command_registry->addItem(new Pageview());
     }
-
-    $attachments['#attached']['library'][] = 'gacsp/analytics';
-    $attachments['#attached']['drupalSettings']['gacsp']['tracking_id'] = $tracking_id;
-    $attachments['#attached']['drupalSettings']['gacsp']['commands'] = $command_registry->getDrupalSettingCommands();
   }
+
+  $attachments['#attached']['library'][] = 'gacsp/analytics';
+  $attachments['#attached']['drupalSettings']['gacsp']['commands'] = $command_registry->getDrupalSettingCommands();
 }
