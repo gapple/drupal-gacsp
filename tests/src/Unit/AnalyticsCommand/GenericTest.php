@@ -1,10 +1,10 @@
 <?php
 /**
  * @file
- * Contains \Drupal\Tests\gacsp\Unit\AnalyticsCommands\GenericTest.
+ * Contains \Drupal\Tests\gacsp\Unit\AnalyticsCommand\GenericTest.
  */
 
-namespace Drupal\Tests\gacsp\Unit\AnalyticsCommands;
+namespace Drupal\Tests\gacsp\Unit\AnalyticsCommand;
 
 use Drupal\gacsp\AnalyticsCommand\Generic;
 use Drupal\Tests\UnitTestCase;

@@ -1,10 +1,10 @@
 <?php
 /**
  * @file
- * Contains \Drupal\Tests\gacsp\Unit\AnalyticsCommands\PageviewTest.
+ * Contains \Drupal\Tests\gacsp\Unit\AnalyticsCommand\PageviewTest.
  */
 
-namespace Drupal\Tests\gacsp\Unit\AnalyticsCommands;
+namespace Drupal\Tests\gacsp\Unit\AnalyticsCommand;
 
 use Drupal\gacsp\AnalyticsCommand\Pageview;
 use Drupal\Tests\UnitTestCase;

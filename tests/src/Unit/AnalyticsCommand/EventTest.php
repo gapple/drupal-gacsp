@@ -1,10 +1,10 @@
 <?php
 /**
  * @file
- * Contains \Drupal\Tests\gacsp\Unit\AnalyticsCommands\EventTest.
+ * Contains \Drupal\Tests\gacsp\Unit\AnalyticsCommand\EventTest.
  */
 
-namespace Drupal\Tests\gacsp\Unit\AnalyticsCommands;
+namespace Drupal\Tests\gacsp\Unit\AnalyticsCommand;
 
 use Drupal\gacsp\AnalyticsCommand\Event;
 use Drupal\Tests\UnitTestCase;

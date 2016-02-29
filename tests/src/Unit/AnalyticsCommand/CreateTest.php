@@ -1,10 +1,10 @@
 <?php
 /**
  * @file
- * Contains \Drupal\Tests\gacsp\Unit\AnalyticsCommands\CreateTest.
+ * Contains \Drupal\Tests\gacsp\Unit\AnalyticsCommand\CreateTest.
  */
 
-namespace Drupal\Tests\gacsp\Unit\AnalyticsCommands;
+namespace Drupal\Tests\gacsp\Unit\AnalyticsCommand;
 
 use Drupal\gacsp\AnalyticsCommand\Create;
 use Drupal\Tests\UnitTestCase;

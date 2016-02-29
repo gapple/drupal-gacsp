@@ -1,10 +1,10 @@
 <?php
 /**
  * @file
- * Contains \Drupal\Tests\gacsp\Unit\AnalyticsCommands\RequirePluginTest.
+ * Contains \Drupal\Tests\gacsp\Unit\AnalyticsCommand\RequirePluginTest.
  */
 
-namespace Drupal\Tests\gacsp\Unit\AnalyticsCommands;
+namespace Drupal\Tests\gacsp\Unit\AnalyticsCommand;
 
 use Drupal\gacsp\AnalyticsCommand\RequirePlugin;
 use Drupal\Tests\UnitTestCase;
