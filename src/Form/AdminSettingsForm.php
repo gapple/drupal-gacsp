@@ -119,7 +119,7 @@ class AdminSettingsForm extends ConfigFormBase {
 
     $property = $form_state->getValue('tracking_id');
     if (!empty($property) && !preg_match('/^UA-\d+-\d+$/', $property)) {
-      $form_state->setErrorByName('tracking_id', t('The provided Tracking ID is not valid.'));
+      $form_state->setErrorByName('tracking_id', $this->t('The provided Tracking ID is not valid.'));
     }
   }
 
