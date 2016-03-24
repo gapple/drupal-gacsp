@@ -6,7 +6,6 @@
 
 namespace Drupal\gacsp;
 
-use Drupal\Core\Config\ConfigFactoryInterface;
 use Drupal\gacsp\AnalyticsCommand\DrupalSettingCommandsInterface;
 
 /**
