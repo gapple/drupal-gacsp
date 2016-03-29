@@ -1,9 +1,4 @@
 <?php
-/**
- * @file
- * Contains \Drupal\gacsp\CommandRegistryService.
- */
-
 namespace Drupal\gacsp;
 
 use Drupal\gacsp\AnalyticsCommand\DrupalSettingCommandsInterface;
@@ -16,7 +11,7 @@ class CommandRegistryService {
   /**
    * The registered analytics commands.
    *
-   * @var array
+   * @var \Drupal\gacsp\AnalyticsCommand\DrupalSettingCommandsInterface[]
    */
   protected $commands;
 
@@ -28,32 +23,35 @@ class CommandRegistryService {
   }
 
   /**
-   * Add an item to the registry.
+   * Add a command to the registry.
+   *
+   * @param \Drupal\gacsp\AnalyticsCommand\DrupalSettingCommandsInterface $command
+   *   An analytics command.
+   *
+   * @deprecated Use addCommand() instead.
+   */
+  public function addItem(DrupalSettingCommandsInterface $command) {
+    $this->addCommand($command);
+  }
+
+  /**
+   * Add a command to the registry.
    *
    * @param \Drupal\gacsp\AnalyticsCommand\DrupalSettingCommandsInterface $command
    *   An analytics command.
    */
-  public function addItem(DrupalSettingCommandsInterface $command) {
+  public function addCommand(DrupalSettingCommandsInterface $command) {
     $this->commands[] = $command;
   }
 
   /**
-   * Format the commands for use in drupalSettings.
+   * Get all commands registered.
    *
-   * @return array
-   *   An array of commands for use in drupalSettings.
+   * @return \Drupal\gacsp\AnalyticsCommand\DrupalSettingCommandsInterface[]
+   *   The array of registered commands.
    */
-  public function getDrupalSettingCommands() {
-    usort($this->commands, function (DrupalSettingCommandsInterface $a, DrupalSettingCommandsInterface $b) {
-      return $b->getPriority() - $a->getPriority();
-    });
-
-    return array_reduce(
-      $this->commands,
-      function ($carry, DrupalSettingCommandsInterface $item) {
-        return array_merge($carry, $item->getSettingCommands());
-      },
-      []
-    );
+  public function getCommands() {
+    return $this->commands;
   }
+
 }

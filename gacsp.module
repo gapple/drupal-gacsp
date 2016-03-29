@@ -4,47 +4,18 @@
  * Contains gacsp.module.
  */
 
-use Drupal\gacsp\AnalyticsCommand\Create;
-use Drupal\gacsp\AnalyticsCommand\Linker\AutoLink;
-use Drupal\gacsp\AnalyticsCommand\Pageview;
-use Drupal\gacsp\AnalyticsCommand\RequirePlugin;
+use Drupal\gacsp\AnalyticsEvents;
+use Drupal\gacsp\Event\CollectEvent;
 
 /**
  * Implements hook_page_attachments().
  */
 function gacsp_page_attachments(array &$attachments) {
 
-  /** @var \Drupal\gacsp\CommandRegistryService $command_registry */
-  $command_registry = \Drupal::service('gacsp.command_registry');
-
-  $config = \Drupal::configFactory()->get('gacsp.settings');
-  if ($config->get('add_default_commands')) {
-    if (($tracking_id = $config->get('tracking_id'))) {
-      $fieldsObject = [];
-      if ($config->get('plugins.linker.enable')) {
-        $fieldsObject['allowLinker'] = TRUE;
-      }
-
-      $command_registry->addItem(new Create($tracking_id, 'auto', NULL, $fieldsObject));
-    }
-    if ($config->get('send_pageview')) {
-      $command_registry->addItem(new Pageview());
-    }
-
-    if ($config->get('plugins.linkid')) {
-      $command_registry->addItem(new RequirePlugin('linkid'));
-    }
-    if ($config->get('plugins.displayfeatures')) {
-      $command_registry->addItem(new RequirePlugin('displayfeatures'));
-    }
-    if ($config->get('plugins.linker.enable')) {
-      $command_registry->addItem(new RequirePlugin('linker'));
-      if (($domains = $config->get('plugins.linker.domains'))) {
-        $command_registry->addItem(new AutoLink($domains));
-      }
-    }
-  }
+  /** @var CollectEvent $event */
+  $event = \Drupal::service('event_dispatcher')
+    ->dispatch(AnalyticsEvents::COLLECT, new CollectEvent());
 
   $attachments['#attached']['library'][] = 'gacsp/analytics';
-  $attachments['#attached']['drupalSettings']['gacsp']['commands'] = $command_registry->getDrupalSettingCommands();
+  $attachments['#attached']['drupalSettings']['gacsp']['commands'] = $event->getDrupalSettingCommands();
 }
