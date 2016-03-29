@@ -1,29 +1,39 @@
-gacsp Module
+gacsp: Google Analytics Module
 -------------------
 
-gacsp provides Google Analytics integration in Drupal that emphasises
-*programmability* over *configurability*.
+**gacsp** provides flexible Google Analytics integration in Drupal that is
+easily extensible by other modules.
 
 No inline Javascript is used, to not inhibit the use of
 [CSP (Content Security Policy)](https://developer.mozilla.org/en-US/docs/Web/Security/CSP)
 for the prevention of XSS attacks.
 
-## Usage
 
-Provide a Google Analytics Tracking ID in the module configuration, and the
-tracker and a pageview event will automatically be added to the page.
+## Basic Configuration
 
-Additional analytics commands can be added via the `gacsp.command_registry` 
-service.
+The default module configuration allows specifying a Google Analyticsq
+Tracking ID, and optionally enabling additional plugins.
 
-    \Drupal::service('gacsp.command_registry')->addCommand(
-      new \Drupal\gacsp\AnalyticsCommand\Set('dimension1', 'value')
-    );
+Each of the default options can be individually disabled if custom behaviour is
+provided by another module, or all default behaviour can be disabled completely.
+
+## Providing Custom Commands
+
+### Collect Event
+
+To add additional commands, create an Event Subscriber for the
+`\Drupal\gacsp\AnalyticsEvents::COLLECT` event.  The subscriber will be sent an
+instance of `\Drupal\gacsp\Event\CollectEvent`.
+
+### Command Registry
+
+The `gacsp.command_registry` service is available as a convenience for adding
+commands within procedural code.
 
 
 ### Ordering Commands
 
-Each command has a priority that determines the order that it is added to the 
+Each command has a priority that determines the order that it is added to the
 command queue.  The default values are
 
  - Create: 300
@@ -33,17 +43,6 @@ command queue.  The default values are
  - Pageview: -5
  - Send, Event: -10
 
-
-### Grouping Commands
-
-Commands can be placed within a group to maintain a consistent order among other
- commands.
-
-    $commandGroup = new \Drupal\gacsp\AnalyticsCommand\Group('dimensions', \Drupal\gacsp\AnalyticsCommand\Set::DEFAULT_PRIORITY);
-    $commandGroup->addCommand(
-      new \Drupal\gacsp\AnalyticsCommand\Set('dimension1', 'value')
-    );
-    $commandGroup->addCommand(
-      new \Drupal\gacsp\AnalyticsCommand\Set('dimension2', 'value')
-    );
-    \Drupal::service('gacsp.command_registry')->addItem($commandGroup);
+If a set of commands need to maintain a consistent order among other commands,
+add them within a `\Drupal\gacsp\AnalyticsCommand\Group` instance with the
+appropriate priority.
