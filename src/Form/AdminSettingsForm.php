@@ -43,16 +43,22 @@ class AdminSettingsForm extends ConfigFormBase {
       '#default_value' => $config->get('add_default_commands'),
     ];
 
-    $form['default_config'] = [
-      '#type' => 'fieldset',
-      '#title' => $this->t('Default Options'),
+    $form['settings'] = [
+      '#type' => 'vertical_tabs',
+      '#default_tab' => 'basics',
       '#states' => [
         'visible' => [
           ':input[data-drupal-selector="edit-add-default-commands"]' => ['checked' => TRUE],
         ],
       ],
     ];
-    $form['default_config']['tracking_id'] = [
+
+    $form['basics'] = [
+      '#type' => 'details',
+      '#title' => $this->t('Basics'),
+      '#group' => 'settings',
+    ];
+    $form['basics']['tracking_id'] = [
       '#type' => 'textfield',
       '#title' => $this->t('Web Property Tracking ID'),
       '#description' => $this->t('Tracking ID in the format "UA-xxxxxxx-y"'),
@@ -61,18 +67,19 @@ class AdminSettingsForm extends ConfigFormBase {
       '#size' => '20',
       '#default_value' => $config->get('tracking_id'),
     ];
-    $form['default_config']['send_pageview'] = [
+    $form['basics']['send_pageview'] = [
       '#type' => 'checkbox',
       '#title' => $this->t('Send Pageview Event'),
       '#default_value' => $config->get('send_pageview'),
     ];
 
-    $form['default_config']['plugins'] = [
-      '#type' => 'fieldset',
-      '#title' => 'Plugins',
+    $form['plugins'] = [
+      '#type' => 'details',
+      '#title' => $this->t('Plugins'),
+      '#group' => 'settings',
       '#tree' => TRUE,
     ];
-    $form['default_config']['plugins']['linkid'] = [
+    $form['plugins']['linkid'] = [
       '#type' => 'checkbox',
       '#title' => $this->t('Enhanced Link Attribution'),
       '#description' => $this->t('Improve the accuracy of your In-Page Analytics report by automatically differentiating between multiple links to the same URL on a single page by using link element IDs (<a href=":url">Documentation</a>).', [
@@ -80,7 +87,7 @@ class AdminSettingsForm extends ConfigFormBase {
       ]),
       '#default_value' => $config->get('plugins.linkid'),
     ];
-    $form['default_config']['plugins']['displayfeatures'] = [
+    $form['plugins']['displayfeatures'] = [
       '#type' => 'checkbox',
       '#title' => $this->t('Display Features'),
       '#description' => $this->t('Enable Advertising Features in Google Analytics, such as Remarketing, Demographics and Interest Reporting, and more (<a href=":url">Documentation</a>).<br/> This option can also be enabled through your property settings.', [
@@ -88,7 +95,7 @@ class AdminSettingsForm extends ConfigFormBase {
       ]),
       '#default_value' => $config->get('plugins.displayfeatures'),
     ];
-    $form['default_config']['plugins']['linker'] = [
+    $form['plugins']['linker'] = [
       '#type' => 'checkbox',
       '#title' => $this->t('Linker'),
       '#description' => $this->t('Enable cross-domain tracking (<a href=":url">Documentation</a>).', [
@@ -96,7 +103,7 @@ class AdminSettingsForm extends ConfigFormBase {
       ]),
       '#default_value' => $config->get('plugins.linker.enable'),
     ];
-    $form['default_config']['plugins']['linker_domains'] = [
+    $form['plugins']['linker_domains'] = [
       '#type' => 'textfield',
       '#title' => $this->t('Linker Domains'),
       '#description' => $this->t('A comma separated list of domains.'),
