@@ -41,3 +41,12 @@ function gacsp_update_8104() {
     ->set('plugins.linker.domains', [])
     ->save();
 }
+
+/**
+ * Add User ID tracking config value.
+ */
+function gacsp_update_8105() {
+  \Drupal::configFactory()->getEditable('gacsp.settings')
+    ->set('track_user_id', FALSE)
+    ->save();
+}

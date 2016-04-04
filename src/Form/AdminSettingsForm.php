@@ -115,6 +115,20 @@ class AdminSettingsForm extends ConfigFormBase {
       ],
     ];
 
+    $form['users'] = [
+      '#type' => 'details',
+      '#title' => $this->t('Users'),
+      '#group' => 'settings',
+    ];
+    $form['users']['track_user_id'] = [
+      '#type' => 'checkbox',
+      '#title' => $this->t('Track User ID'),
+      '#description' => $this->t('Enable the analysis of groups of sessions, across devices (<a href=":url">Documentation</a>).', [
+        ':url' => 'https://developers.google.com/analytics/devguides/collection/analyticsjs/cookies-user-id#user_id',
+      ]),
+      '#default_value' => $config->get('track_user_id'),
+    ];
+
     return parent::buildForm($form, $form_state);
   }
 
@@ -142,7 +156,8 @@ class AdminSettingsForm extends ConfigFormBase {
       ->set('plugins.linkid', $form_state->getValue(['plugins', 'linkid']))
       ->set('plugins.displayfeatures', $form_state->getValue(['plugins', 'displayfeatures']))
       ->set('plugins.linker.enable', $form_state->getValue(['plugins', 'linker']))
-      ->set('plugins.linker.domains', preg_split('/, ?/', $form_state->getValue(['plugins', 'linker_domains'])))
+      ->set('plugins.linker.domains', array_filter(preg_split('/, ?/', $form_state->getValue(['plugins', 'linker_domains']))))
+      ->set('track_user_id', $form_state->getValue('track_user_id'))
       ->save();
 
     parent::submitForm($form, $form_state);

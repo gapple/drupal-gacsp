@@ -6,4 +6,5 @@ plugins:
   displayfeatures: false
   linker:
     enable: false
-    domains: {}
+    domains: {  }
+track_user_id: false

@@ -2,6 +2,8 @@
 namespace Drupal\gacsp\EventSubscriber;
 
 use Drupal\Core\Config\ConfigFactoryInterface;
+use Drupal\Core\Entity\EntityTypeManagerInterface;
+use Drupal\Core\Session\AccountInterface;
 use Drupal\gacsp\AnalyticsCommand\Create;
 use Drupal\gacsp\AnalyticsCommand\Linker\AutoLink;
 use Drupal\gacsp\AnalyticsCommand\Pageview;
@@ -31,6 +33,20 @@ class DefaultCommandSubscriber implements EventSubscriberInterface {
   protected $configFactory;
 
   /**
+   * The current user service.
+   *
+   * @var \Drupal\Core\Session\AccountInterface;
+   */
+  protected $currentUser;
+
+  /**
+   * User Entity Storage.
+   *
+   * @var \Drupal\Core\Entity\EntityStorageInterface
+   */
+  protected $userStorage;
+
+  /**
    * {@inheritdoc}
    */
   public static function getSubscribedEvents() {
@@ -50,9 +66,16 @@ class DefaultCommandSubscriber implements EventSubscriberInterface {
    * @param \Drupal\gacsp\CommandRegistryService $commandRegistry
    *   The command registry service.
    */
-  public function __construct(ConfigFactoryInterface $configFactory, CommandRegistryService $commandRegistry) {
+  public function __construct(
+    ConfigFactoryInterface $configFactory,
+    CommandRegistryService $commandRegistry,
+    AccountInterface $currentUser,
+    EntityTypeManagerInterface $entityTypeManager
+  ) {
     $this->configFactory = $configFactory;
     $this->commandRegistry = $commandRegistry;
+    $this->currentUser = $currentUser;
+    $this->userStorage = $entityTypeManager->getStorage('user');
   }
 
   /**
@@ -80,8 +103,14 @@ class DefaultCommandSubscriber implements EventSubscriberInterface {
     if ($config->get('add_default_commands')) {
       if (($tracking_id = $config->get('tracking_id'))) {
         $fieldsObject = [];
+
         if ($config->get('plugins.linker.enable')) {
           $fieldsObject['allowLinker'] = TRUE;
+        }
+
+        if ($config->get('track_user_id') && $this->currentUser->isAuthenticated()) {
+          $account = $this->userStorage->load($this->currentUser->id());
+          $fieldsObject['userId'] = $account->uuid();
         }
 
         $event->addCommand(new Create($tracking_id, 'auto', NULL, $fieldsObject));

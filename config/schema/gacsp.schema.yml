@@ -34,3 +34,6 @@ gacsp.settings:
               label: 'Domains'
               sequence:
                 type: string
+    track_user_id:
+      type: boolean
+      label: 'Track User ID'
