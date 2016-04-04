@@ -113,6 +113,10 @@ class DefaultCommandSubscriber implements EventSubscriberInterface {
           $fieldsObject['userId'] = $account->uuid();
         }
 
+        if ($config->get('anonymize_ip')) {
+          $fieldsObject['anonymizeIp'] = TRUE;
+        }
+
         $event->addCommand(new Create($tracking_id, 'auto', NULL, $fieldsObject));
       }
       if ($config->get('send_pageview')) {

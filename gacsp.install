@@ -50,3 +50,12 @@ function gacsp_update_8105() {
     ->set('track_user_id', FALSE)
     ->save();
 }
+
+/**
+ * Add IP Anonymization config value.
+ */
+function gacsp_update_8106() {
+  \Drupal::configFactory()->getEditable('gacsp.settings')
+    ->set('anonymize_ip', FALSE)
+    ->save();
+}

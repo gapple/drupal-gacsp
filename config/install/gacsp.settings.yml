@@ -8,3 +8,4 @@ plugins:
     enable: false
     domains: {  }
 track_user_id: false
+anonymize_ip: false

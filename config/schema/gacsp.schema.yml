@@ -37,3 +37,6 @@ gacsp.settings:
     track_user_id:
       type: boolean
       label: 'Track User ID'
+    anonymize_ip:
+      type: boolean
+      label: 'Anonymize IP'

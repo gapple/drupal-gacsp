@@ -1,8 +1,4 @@
 <?php
-/**
- * @file
- * Contains Drupal\gacsp\Form\SettingsForm.
- */
 
 namespace Drupal\gacsp\Form;
 
@@ -129,6 +125,20 @@ class AdminSettingsForm extends ConfigFormBase {
       '#default_value' => $config->get('track_user_id'),
     ];
 
+    $form['privacy'] = [
+      '#type' => 'details',
+      '#title' => $this->t('Privacy'),
+      '#group' => 'settings',
+    ];
+    $form['privacy']['anonymize_ip'] = [
+      '#type' => 'checkbox',
+      '#title' => $this->t('IP Anonymization'),
+      '#description' => $this->t('Request IP address anonymization (<a href=":url">Documentation</a>).', [
+        ':url' => 'https://developers.google.com/analytics/devguides/collection/analyticsjs/ip-anonymization',
+      ]),
+      '#default_value' => $config->get('anonymize_ip'),
+    ];
+
     return parent::buildForm($form, $form_state);
   }
 
@@ -158,6 +168,7 @@ class AdminSettingsForm extends ConfigFormBase {
       ->set('plugins.linker.enable', $form_state->getValue(['plugins', 'linker']))
       ->set('plugins.linker.domains', array_filter(preg_split('/, ?/', $form_state->getValue(['plugins', 'linker_domains']))))
       ->set('track_user_id', $form_state->getValue('track_user_id'))
+      ->set('anonymize_ip', $form_state->getValue('anonymize_ip'))
       ->save();
 
     parent::submitForm($form, $form_state);
