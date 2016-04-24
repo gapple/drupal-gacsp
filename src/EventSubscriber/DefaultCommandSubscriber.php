@@ -8,6 +8,7 @@ use Drupal\gacsp\AnalyticsCommand\Create;
 use Drupal\gacsp\AnalyticsCommand\Linker\AutoLink;
 use Drupal\gacsp\AnalyticsCommand\Pageview;
 use Drupal\gacsp\AnalyticsCommand\RequirePlugin;
+use Drupal\gacsp\AnalyticsCommand\Set;
 use Drupal\gacsp\AnalyticsEvents;
 use Drupal\gacsp\CommandRegistryService;
 use Drupal\gacsp\Event\CollectEvent;
@@ -101,7 +102,10 @@ class DefaultCommandSubscriber implements EventSubscriberInterface {
     $config = $this->configFactory->get('gacsp.settings');
 
     if ($config->get('add_default_commands')) {
+
+      // Initialize tracker or set tracker options.
       if (($tracking_id = $config->get('tracking_id'))) {
+        // Add options which can be provided when initializing the tracker.
         $fieldsObject = [];
 
         if ($config->get('plugins.linker.enable')) {
@@ -119,10 +123,24 @@ class DefaultCommandSubscriber implements EventSubscriberInterface {
 
         $event->addCommand(new Create($tracking_id, 'auto', NULL, $fieldsObject));
       }
+      else {
+        // If a trackingId isn't provided for initializing a tracker, these
+        // options can be provided via set commands instead.
+        if ($config->get('track_user_id') && $this->currentUser->isAuthenticated()) {
+          $account = $this->userStorage->load($this->currentUser->id());
+          $event->addCommand(new Set('userId', $account->uuid()));
+        }
+
+        if ($config->get('anonymize_ip')) {
+          $event->addCommand(new Set('anonymizeIp', TRUE));
+        }
+      }
+
       if ($config->get('send_pageview')) {
         $event->addCommand(new Pageview());
       }
 
+      // Enable Plugins.
       if ($config->get('plugins.linkid')) {
         $event->addCommand(new RequirePlugin('linkid'));
       }
@@ -130,6 +148,8 @@ class DefaultCommandSubscriber implements EventSubscriberInterface {
         $event->addCommand(new RequirePlugin('displayfeatures'));
       }
       if ($config->get('plugins.linker.enable')) {
+        // Note: 'allowLinker' must be set when creating the tracker for this
+        // plugin to have an effect.
         $event->addCommand(new RequirePlugin('linker'));
         if (($domains = $config->get('plugins.linker.domains'))) {
           $event->addCommand(new AutoLink($domains));
