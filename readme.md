@@ -11,7 +11,7 @@ for the prevention of XSS attacks.
 
 ## Basic Configuration
 
-The default module configuration allows specifying a Google Analyticsq
+The default module configuration allows specifying a Google Analytics
 Tracking ID, and optionally enabling additional plugins.
 
 Each of the default options can be individually disabled if custom behaviour is
