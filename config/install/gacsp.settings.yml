@@ -8,4 +8,7 @@ plugins:
     enable: false
     domains: {  }
 track_user_id: false
+user_roles:
+  mode: disabled
+  roles: {  }
 anonymize_ip: false

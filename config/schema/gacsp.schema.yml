@@ -37,6 +37,14 @@ gacsp.settings:
     track_user_id:
       type: boolean
       label: 'Track User ID'
+    user_roles:
+      type: mapping
+      mapping:
+        type: string
+        label: 'User role restriction mode'
+      roles:
+        type: sequence
+        label: 'User roles to apply analytics restrictions to'
     anonymize_ip:
       type: boolean
       label: 'Anonymize IP'

@@ -103,6 +103,22 @@ class DefaultCommandSubscriber implements EventSubscriberInterface {
 
     if ($config->get('add_default_commands')) {
 
+      // Check user role restrictions.
+      switch ($config->get('user_roles.mode')) {
+        case 'include':
+          $userRoleMode = TRUE;
+          break;
+
+        case 'exclude':
+          $userRoleMode = FALSE;
+          break;
+      }
+      $userRoleCommon = array_intersect($config->get('user_roles.roles'), $this->currentUser->getRoles());
+      if (isset($userRoleMode) && ($userRoleMode ^ !empty($userRoleCommon))) {
+        // Don't add any default commands if restriction is matched.
+        return;
+      }
+
       // Initialize tracker or set tracker options.
       if (($tracking_id = $config->get('tracking_id'))) {
         // Add options which can be provided when initializing the tracker.

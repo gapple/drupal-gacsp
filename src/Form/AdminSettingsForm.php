@@ -6,7 +6,7 @@ use Drupal\Core\Form\ConfigFormBase;
 use Drupal\Core\Form\FormStateInterface;
 
 /**
- * Form for editing TVM API Proxy settings.
+ * Form for editing Google Analytics settings.
  */
 class AdminSettingsForm extends ConfigFormBase {
 
@@ -125,6 +125,38 @@ class AdminSettingsForm extends ConfigFormBase {
       '#default_value' => $config->get('track_user_id'),
     ];
 
+    $form['users']['user_roles'] = [
+      '#type' => 'fieldset',
+      '#title' => 'Restrict analytics by user role',
+      '#tree' => TRUE,
+    ];
+    $form['users']['user_roles']['mode'] = [
+      '#type' => 'radios',
+      '#title' => $this->t('Filter mode'),
+      '#options' => [
+        'disabled' => $this->t('Disabled'),
+        'include' => $this->t('Include'),
+        'exclude' => $this->t('Exclude'),
+      ],
+      '#default_value' => $config->get('user_roles.mode'),
+    ];
+
+    $rolesConfigKeys = $this->configFactory()->listAll('user.role.');
+    $rolesConfig = $this->configFactory()->loadMultiple($rolesConfigKeys);
+    usort($rolesConfig, function ($a, $b) {
+      return $a->get('weight') - $b->get('weight');
+    });
+    $roleOptions = array_reduce($rolesConfig, function ($result, $item) {
+      $result[$item->get('id')] = $item->get('label');
+      return $result;
+    }, []);
+    $form['users']['user_roles']['roles'] = [
+      '#type' => 'checkboxes',
+      '#title' => $this->t('Roles'),
+      '#options' => $roleOptions,
+      '#default_value' => $config->get('user_roles.roles'),
+    ];
+
     $form['privacy'] = [
       '#type' => 'details',
       '#title' => $this->t('Privacy'),
@@ -168,9 +200,12 @@ class AdminSettingsForm extends ConfigFormBase {
       ->set('plugins.linker.enable', $form_state->getValue(['plugins', 'linker']))
       ->set('plugins.linker.domains', array_filter(preg_split('/, ?/', $form_state->getValue(['plugins', 'linker_domains']))))
       ->set('track_user_id', $form_state->getValue('track_user_id'))
+      ->set('user_roles.mode', $form_state->getValue(['user_roles', 'mode']))
+      ->set('user_roles.roles', array_values(array_filter($form_state->getValue(['user_roles', 'roles']))))
       ->set('anonymize_ip', $form_state->getValue('anonymize_ip'))
       ->save();
 
     parent::submitForm($form, $form_state);
   }
+
 }

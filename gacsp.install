@@ -59,3 +59,13 @@ function gacsp_update_8106() {
     ->set('anonymize_ip', FALSE)
     ->save();
 }
+
+/**
+ * Add user role restriction config value.
+ */
+function gacsp_update_8107() {
+  \Drupal::configFactory()->getEditable('gacsp.settings')
+    ->set('user_roles.mode', 'disabled')
+    ->set('user_roles.roles', [])
+    ->save();
+}
