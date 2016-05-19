@@ -104,18 +104,11 @@ class DefaultCommandSubscriber implements EventSubscriberInterface {
     if ($config->get('add_default_commands')) {
 
       // Check user role restrictions.
-      switch ($config->get('user_roles.mode')) {
-        case 'include':
-          $userRoleMode = TRUE;
-          break;
-
-        case 'exclude':
-          $userRoleMode = FALSE;
-          break;
-      }
-      $userRoleCommon = array_intersect($config->get('user_roles.roles'), $this->currentUser->getRoles());
-      if (isset($userRoleMode) && ($userRoleMode ^ !empty($userRoleCommon))) {
-        // Don't add any default commands if restriction is matched.
+      if (!$this->checkRole(
+        $config->get('user_roles.mode'),
+        $config->get('user_roles.roles'),
+        $this->currentUser->getRoles()
+      )) {
         return;
       }
 
@@ -172,6 +165,46 @@ class DefaultCommandSubscriber implements EventSubscriberInterface {
         }
       }
     }
+  }
+
+  /**
+   * Check role restrictions.
+   *
+   * @param string $mode
+   *   The role mode; either 'include' or 'exclude'.
+   * @param array $limitRoles
+   *   An array of roles to check against.
+   * @param array $userRoles
+   *   The array of roles a user belongs to.
+   *
+   * @return bool
+   *   TRUE if the provided restriction is passed.
+   */
+  private function checkRole($mode, array $limitRoles, array $userRoles) {
+
+    switch ($mode) {
+      case 'disabled':
+        return TRUE;
+
+      case 'include':
+        $userRoleMode = TRUE;
+        break;
+
+      case 'exclude':
+        $userRoleMode = FALSE;
+        break;
+
+      default:
+        throw new \InvalidArgumentException("Mode must be one of 'include' or 'exclude'");
+    }
+
+    $userRoleCommon = array_intersect($limitRoles, $userRoles);
+
+    if ($userRoleMode ^ !empty($userRoleCommon)) {
+      return FALSE;
+    }
+
+    return TRUE;
   }
 
 }
