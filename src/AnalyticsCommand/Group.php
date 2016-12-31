@@ -88,4 +88,5 @@ class Group implements DrupalSettingCommandsInterface, GroupInterface, \Iterator
   public function getIterator() {
     return new \ArrayIterator($this->commands);
   }
+
 }

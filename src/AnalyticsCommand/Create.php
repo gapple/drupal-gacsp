@@ -1,4 +1,5 @@
 <?php
+
 namespace Drupal\gacsp\AnalyticsCommand;
 
 /**
@@ -69,4 +70,5 @@ class Create extends Generic {
 
     return [$command];
   }
+
 }

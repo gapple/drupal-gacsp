@@ -95,4 +95,5 @@ class Generic implements DrupalSettingCommandsInterface {
 
     return [$command];
   }
+
 }

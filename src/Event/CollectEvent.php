@@ -1,4 +1,5 @@
 <?php
+
 namespace Drupal\gacsp\Event;
 
 use Drupal\gacsp\AnalyticsCommand\DrupalSettingCommandsInterface;

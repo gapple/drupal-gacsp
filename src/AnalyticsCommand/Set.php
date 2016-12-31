@@ -1,4 +1,5 @@
 <?php
+
 namespace Drupal\gacsp\AnalyticsCommand;
 
 /**
@@ -66,4 +67,5 @@ class Set extends Generic {
 
     return [$command];
   }
+
 }

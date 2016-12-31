@@ -46,4 +46,5 @@ class PageviewTest extends UnitTestCase {
 
     $this->assertEquals([['tracker.send', 'pageview']], $command->getSettingCommands());
   }
+
 }

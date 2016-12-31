@@ -133,4 +133,5 @@ class EventTest extends UnitTestCase {
 
     $this->assertEquals([['tracker.send', 'event', 'category', 'action']], $command->getSettingCommands());
   }
+
 }

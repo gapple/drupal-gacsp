@@ -46,4 +46,5 @@ class RequirePluginTest extends UnitTestCase {
 
     $this->assertEquals([['tracker.require', 'pluginName']], $command->getSettingCommands());
   }
+
 }

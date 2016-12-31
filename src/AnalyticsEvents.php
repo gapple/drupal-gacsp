@@ -1,4 +1,5 @@
 <?php
+
 namespace Drupal\gacsp;
 
 /**
@@ -16,4 +17,5 @@ final class AnalyticsEvents {
    * @var string
    */
   const COLLECT = 'gacsp.collect';
+
 }

@@ -67,4 +67,5 @@ class AutoLinkTest extends UnitTestCase {
       $command->getSettingCommands()
     );
   }
+
 }

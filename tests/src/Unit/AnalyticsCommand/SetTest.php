@@ -46,4 +46,5 @@ class SetTest extends UnitTestCase {
 
     $this->assertEquals([['tracker.set', 'key', 'value']], $command->getSettingCommands());
   }
+
 }

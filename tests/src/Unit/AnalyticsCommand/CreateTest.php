@@ -58,4 +58,5 @@ class CreateTest extends UnitTestCase {
 
     $this->assertEquals([['create', 'UA-12345678-1', 'auto', 'tracker']], $command->getSettingCommands());
   }
+
 }

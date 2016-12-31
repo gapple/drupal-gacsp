@@ -1,4 +1,5 @@
 <?php
+
 namespace Drupal\gacsp\EventSubscriber;
 
 use Drupal\Core\Config\ConfigFactoryInterface;

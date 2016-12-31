@@ -1,4 +1,5 @@
 <?php
+
 namespace Drupal\gacsp\AnalyticsCommand;
 
 /**

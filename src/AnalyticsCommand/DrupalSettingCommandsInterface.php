@@ -22,4 +22,5 @@ interface DrupalSettingCommandsInterface {
    *   An array of command values.
    */
   public function getSettingCommands();
+
 }

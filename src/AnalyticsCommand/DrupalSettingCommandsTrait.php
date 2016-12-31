@@ -35,4 +35,5 @@ trait DrupalSettingCommandsTrait {
   public function getSettingCommands() {
     return [];
   }
+
 }

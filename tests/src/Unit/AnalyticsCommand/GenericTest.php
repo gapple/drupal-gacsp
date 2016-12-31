@@ -46,4 +46,5 @@ class GenericTest extends UnitTestCase {
 
     $this->assertEquals([['tracker.commandName']], $command->getSettingCommands());
   }
+
 }
