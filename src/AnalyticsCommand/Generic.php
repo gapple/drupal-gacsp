@@ -1,8 +1,4 @@
 <?php
-/**
- * @file
- * Contains \Drupal\gacsp\AnalyticsCommand\FieldObject.
- */
 
 namespace Drupal\gacsp\AnalyticsCommand;
 

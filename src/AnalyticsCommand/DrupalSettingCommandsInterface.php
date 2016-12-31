@@ -1,8 +1,4 @@
 <?php
-/**
- * @file
- * Contains \Drupal\gacsp\AnalyticsCommand\SettingFragmentInterface.
- */
 
 namespace Drupal\gacsp\AnalyticsCommand;
 

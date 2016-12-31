@@ -1,8 +1,4 @@
 <?php
-/**
- * @file
- * Contains Drupal\gacsp\AnalyticsCommand\Send.
- */
 
 namespace Drupal\gacsp\AnalyticsCommand;
 

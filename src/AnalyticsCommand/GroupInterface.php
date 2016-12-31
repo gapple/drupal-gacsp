@@ -1,8 +1,4 @@
 <?php
-/**
- * @file
- * Contains \Drupal\gacsp\AnalyticsCommand\GroupInterface.
- */
 
 namespace Drupal\gacsp\AnalyticsCommand;
 

@@ -1,8 +1,4 @@
 <?php
-/**
- * @file
- * Contains Drupal\gacsp\AnalyticsCommand\Event.
- */
 
 namespace Drupal\gacsp\AnalyticsCommand;
 

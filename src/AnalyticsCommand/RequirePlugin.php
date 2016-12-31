@@ -1,8 +1,4 @@
 <?php
-/**
- * @file
- * Contains Drupal\gacsp\AnalyticsCommand\RequirePlugin.
- */
 
 namespace Drupal\gacsp\AnalyticsCommand;
 
