@@ -1,8 +1,4 @@
 <?php
-/**
- * @file
- * Contains \Drupal\Tests\gacsp\Unit\AnalyticsCommand\SetTest.
- */
 
 namespace Drupal\Tests\gacsp\Unit\AnalyticsCommand;
 

@@ -1,8 +1,4 @@
 <?php
-/**
- * @file
- * Contains \Drupal\Tests\gacsp\Unit\AnalyticsCommand\Linker\AutoLink.
- */
 
 namespace Drupal\Tests\gacsp\Unit\AnalyticsCommand\Linker;
 

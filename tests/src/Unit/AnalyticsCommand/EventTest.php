@@ -1,8 +1,4 @@
 <?php
-/**
- * @file
- * Contains \Drupal\Tests\gacsp\Unit\AnalyticsCommand\EventTest.
- */
 
 namespace Drupal\Tests\gacsp\Unit\AnalyticsCommand;
 
